@@ -1,8 +1,10 @@
+from models.viaje import Viaje
+
 class ViajesController:
     def __init__(self) -> None:
         pass
 
-    def registrar_viaje(self):
+    def registrar_viaje(self, viaje: Viaje):
         pass
 
     def validar_fechas(self):
