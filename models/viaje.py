@@ -28,3 +28,13 @@ class Viaje:
     @property
     def gastos(self) -> list[Gasto]:
         return self.__gastos
+
+    def agregar_gasto(self, gasto: Gasto):
+        self.__gastos.append(gasto)
+
+    def get_balance_dia(self):
+        raise NotImplementedError()
+
+    def get_gastos_dia(self):
+        raise NotImplementedError()
+    
