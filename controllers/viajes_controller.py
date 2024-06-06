@@ -1,10 +1,12 @@
 from models.viaje import Viaje
 from models.gasto import Gasto
+from models.reporte import Reporte
 from datetime import date
 from exceptions.viaje_exception import ViajeException
 from exceptions.gasto_exception import GastoException
 import requests, json
 import logging
+
 
 logging.basicConfig(
     level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -12,8 +14,6 @@ logging.basicConfig(
 
 
 class ViajesController:
-    def __init__(self) -> None:
-        pass
 
     def registrar_viaje(
         self,
@@ -61,7 +61,7 @@ class ViajesController:
         if tipo_gasto not in [
             "transporte",
             "alojamiento",
-            "alimentación",
+            "alimentacion",
             "entretenimiento",
             "compras",
         ]:
@@ -126,3 +126,6 @@ class ViajesController:
         except (ViajeException, GastoException) as e:
             logging.error(e)
             return ""
+
+    def generar_reportes(self, viaje: Viaje):
+        return Reporte.generar_reportes(viaje)

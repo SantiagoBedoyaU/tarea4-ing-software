@@ -11,7 +11,7 @@ def main():
         print("\n---------  Menú Principal ---------")
         print("1. Registrar viaje")
         print("2. Registrar gasto")
-        print("3. Ver reporte")
+        print("3. Ver reportes")
         print("4. Salir")
 
         opcion = input("Seleccione una opción: ")
@@ -27,7 +27,7 @@ def opciones(opcion):
     elif opcion == "2":
         registrar_gasto()
     elif opcion == "3":
-        ver_reporte()
+        ver_reportes()
     else:
         print("Opción inválida. Por favor, seleccione una opción válida.")
 
@@ -55,8 +55,21 @@ def registrar_gasto():
     print(controller.registrar_gasto(fecha, valor, metodo_pago, tipo_gasto))
 
 
-def ver_reporte():
-    pass
+def ver_reportes():
+    viajes: list[Viaje] = controller.get_viajes()
+    print("------ Para que viaje deseas ver sus reportes? ------")
+    for i, viaje in enumerate(viajes, start=0):
+        print(
+            f"  {i}. Viaje entre las fechas {viaje.fecha_inicio} y {viaje.fecha_fin} en {viaje.destino}\n"
+        )
+    try:
+        opcion = int(input("Seleccione una opcion: "))
+        if 0 <= opcion < len(viajes):
+            print(controller.generar_reportes(viajes[opcion]))
+        else:
+            print("Opcion incorrecta")
+    except Exception:
+        print("Error al seleccionar la opcion")
 
 
 if __name__ == "__main__":
