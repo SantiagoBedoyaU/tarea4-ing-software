@@ -1,0 +1,2 @@
+class ViajeException(Exception):
+    pass
