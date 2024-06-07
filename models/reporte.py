@@ -1,11 +1,37 @@
-from models.viaje import Viaje
+""" 
+Este modulo trabaja como servicio de generacion de reportes para viajes
+
+Incluye funcionalidades para:
+- generar reportes por dias y por tipos de gastos para un viaje
+
+Importaciones:
+- datetime.timedelta: util para iterar entre dos fechas para la generacion de reportes por dias
+- Viaje: La clase que representa un viaje.
+- Gasto: La clase que representa un gasto.
+"""
+
 from datetime import timedelta
+from models.gasto import Gasto
+from models.viaje import Viaje
 
 
 class Reporte:
+    """clase que brinda los servicios de generacion de reportes"""
+
     @staticmethod
     def generar_reportes(viaje: Viaje):
-        contenido = f"--- Reporte de gastos para el viaje entre las fechas {viaje.fecha_inicio} y {viaje.fecha_fin} en {viaje.destino} ---\n"
+        """genera un reporte general para el viaje dado y sobreescribe el archivo reporte.txt
+
+        Args:
+            viaje (Viaje): el viaje sobre el cual generar el reporte
+
+        Returns:
+            str: mensaje indicando la correcta generacion de los reportes
+        """
+        contenido = "--- Reporte de gastos para el viaje entre las fechas "
+        contenido += (
+            f"{viaje.fecha_inicio} y {viaje.fecha_fin} en {viaje.destino} ---\n"
+        )
         gasto_total = sum(gasto.valor for gasto in viaje.gastos)
         if len(viaje.gastos) > 0:
             contenido += Reporte.reporte_dias(viaje)
@@ -13,12 +39,20 @@ class Reporte:
         else:
             contenido += "No hay gastos registrados para este viaje\n"
         contenido += f"Gastos totales del viaje : {gasto_total}\n"
-        with open("archivos/reporte.txt", "w") as reporte:
+        with open("archivos/reporte.txt", "w", encoding="utf-8") as reporte:
             reporte.write(contenido)
         return "Reporte generado con exito (ver archivo reporte.txt)"
 
     @staticmethod
     def reporte_dias(viaje: Viaje):
+        """genera el reporte de gastos por dias del viaje
+
+        Args:
+            viaje (Viaje): el viaje sobre el cual se genera el reporte
+
+        Returns:
+            str: contenido del reporte por dias
+        """
         delta = timedelta(days=1)
         fecha = viaje.fecha_inicio
         contenido = "\nReporte de gastos por dias:\n"
@@ -43,14 +77,16 @@ class Reporte:
 
     @staticmethod
     def reporte_tipos(viaje: Viaje):
+        """genera el reporte de gastos por tipos de gasto del viaje
+
+        Args:
+            viaje (Viaje): el viaje sobre el cual se genera el reporte
+
+        Returns:
+            str: contenido del reporte por tipos
+        """
         contenido = "\nReporte de gastos por tipo:\n"
-        for tipo_gasto in [
-            "transporte",
-            "alojamiento",
-            "alimentacion",
-            "entretenimiento",
-            "compras",
-        ]:
+        for tipo_gasto in Gasto.tipos_gasto:
             total_tipo = 0
             total_tipo_efectivo = 0
             total_tipo_tarjeta = 0
