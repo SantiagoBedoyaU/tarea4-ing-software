@@ -8,11 +8,9 @@ Incluye funcionalidades para:
 - Solicitar un viaje para generar sus reportes.
 
 Importaciones:
-- Viaje: La clase que representa un viaje.
 - ViajesController: la clase que maneja la logica de negocio de gestion de viajes y gastos
 """
 
-from models.viaje import Viaje
 from controllers.viajes_controller import ViajesController
 
 controller = ViajesController()
