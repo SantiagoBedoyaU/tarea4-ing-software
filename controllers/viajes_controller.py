@@ -85,7 +85,7 @@ class ViajesController:
         if destino not in ["colombia", "usa", "europa"]:
             raise ViajeException("destino no aceptado")
 
-    def validar_fechas(self, fecha_inicio: str, fecha_fin: str) -> tuple[date, date]:
+    def validar_fechas(self, fecha_inicio: str, fecha_fin: str):
         """valida que:
         1. Las fechas esten en el orden correcto de tiempo
         2. Las fechas no se crucen con ningun otro viaje
@@ -104,7 +104,7 @@ class ViajesController:
         fecha_fin = date.fromisoformat(fecha_fin)
         if fecha_fin <= fecha_inicio:
             raise ViajeException("fechas incorrectas")
-        viajes: list[Viaje] = self.get_viajes()
+        viajes = self.get_viajes()
         for viaje in viajes:
             if (viaje.fecha_inicio <= fecha_inicio <= viaje.fecha_fin) or (
                 viaje.fecha_inicio <= fecha_fin <= viaje.fecha_fin
@@ -154,7 +154,7 @@ class ViajesController:
                 return viajes, viaje
         raise ViajeException("No hay ningun viaje en la fecha dada para el pago")
 
-    def get_viajes(self) -> list[Viaje]:
+    def get_viajes(self):
         """obtiene el listado de viajes almacenados en el archivo viajes.json
 
         Returns:
@@ -200,7 +200,7 @@ class ViajesController:
                 "La solicitud para obtener la tasa de cambio ha expirado"
             ) from e
 
-    def agregar_viaje(self, viaje: Viaje) -> list[Viaje]:
+    def agregar_viaje(self, viaje: Viaje):
         """obtiene la lista de viajes y agrega a la misma el viaje dado
 
         Args:
@@ -213,7 +213,7 @@ class ViajesController:
         viajes.append(viaje)
         return viajes
 
-    def guardar_archivo(self, viajes: list[Viaje]):
+    def guardar_archivo(self, viajes):
         """reescribe el archivo viajes.json con la lista de viajes dada
 
         Args:

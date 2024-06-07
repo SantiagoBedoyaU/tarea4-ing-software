@@ -26,7 +26,7 @@ class Viaje:
         self.__fecha_inicio = fecha_inicio
         self.__fecha_fin = fecha_fin
         self.__presupuesto_diario = presupuesto_diario
-        self.__gastos: list[Gasto] = []
+        self.__gastos = []
 
     @property
     def destino(self) -> str:
@@ -65,7 +65,7 @@ class Viaje:
         return self.__presupuesto_diario
 
     @property
-    def gastos(self) -> list[Gasto]:
+    def gastos(self):
         """retorna el atributo __gastos
 
         Returns:
@@ -95,7 +95,7 @@ class Viaje:
             balance -= gasto.valor
         return balance
 
-    def get_gastos_dia(self, fecha: date) -> list[Gasto]:
+    def get_gastos_dia(self, fecha: date):
         """obtiene los gastos de una fecha dada
 
         Args:
@@ -104,7 +104,7 @@ class Viaje:
         Returns:
             list[Gasto]: listado de gastos de la fecha dada
         """
-        gastos_dia: list[Gasto] = []
+        gastos_dia = []
         for gasto in self.gastos:
             print(gasto.fecha == fecha)
             if gasto.fecha == fecha:

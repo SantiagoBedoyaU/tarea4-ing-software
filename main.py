@@ -92,7 +92,7 @@ def ver_reportes():
     - solicita al controlador la generacion de los reportes
     - muestra al usuario el resultado del proceso de genearacion de los reportes
     """
-    viajes: list[Viaje] = controller.get_viajes()
+    viajes = controller.get_viajes()
     print("------ Para que viaje deseas ver sus reportes? ------")
     for i, viaje in enumerate(viajes, start=0):
         print(
